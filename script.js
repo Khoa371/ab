@@ -1,9 +1,7 @@
 import * as THREE from "https://cdn.skypack.dev/three@0.136.0";
 import { OrbitControls } from "https://cdn.skypack.dev/three@0.136.0/examples/jsm/controls/OrbitControls";
 
-var defined = 'QXV0aG9yOiBMdWMg';
-var datacenter = ['aHR0cHM6L', 'y93d3cuZmF', 'jZWJvb2suY29t'];
-
+// Khởi tạo scene và camera
 let scene = new THREE.Scene();
 scene.background = new THREE.Color('#160016');
 let camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 2000);
@@ -19,17 +17,13 @@ window.addEventListener("resize", event => {
     renderer.setSize(innerWidth, innerHeight);
 });
 
-datacenter.push('L3Byb2ZpbGUu');
 let controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.enablePan = false;
-datacenter.push('cGhwP2lkPTEw');
 
 let gu = {
     time: { value: 0 }
 };
-
-defined = defined.concat('VGhpZW4gUGhvbmc=');
 
 // Mảng màu sắc cho các galaxy
 const galaxyColors = [
@@ -37,8 +31,7 @@ const galaxyColors = [
     { color1: [154, 40, 40], color2: [196, 124, 124] },     // Đỏ
     { color1: [40, 154, 40], color2: [124, 196, 124] },     // Xanh lá
     { color1: [40, 40, 154], color2: [124, 124, 196] },     // Xanh dương
-    { color1: [154, 154, 40], color2: [196, 196, 124] },    // Vàng
-    { color1: [154, 40, 154], color2: [196, 124, 196] }     // Tím
+    { color1: [154, 154, 40], color2: [196, 196, 124] }     // Vàng
 ];
 
 // Tạo các galaxy
@@ -68,9 +61,6 @@ galaxyColors.forEach((colors, index) => {
         sizes.push(Math.random() * 1.5 + 0.5);
         pushShift();
     }
-
-    datacenter.push('MDA0NTQwNj');
-    var context = atob(defined);
 
     let g = new THREE.BufferGeometry().setFromPoints(pts);
     g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
@@ -138,11 +128,7 @@ galaxyColors.forEach((colors, index) => {
     scene.add(p);
 });
 
-console.log(context);
-datacenter.push('I2MTQ5MQ' + '==');
-const data = atob(datacenter.join(''));
 let clock = new THREE.Clock();
-console.log(data);
 
 renderer.setAnimationLoop(() => {
     controls.update();
