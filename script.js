@@ -6,8 +6,8 @@ var datacenter = ['aHR0cHM6L', 'y93d3cuZmF', 'jZWJvb2suY29t'];
 
 let scene = new THREE.Scene();
 scene.background = new THREE.Color('#160016');
-let camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 1000);
-camera.position.set(0, 150, 400);
+let camera = new THREE.PerspectiveCamera(60, innerWidth / innerHeight, 1, 2000);
+camera.position.set(0, 200, 600);
 
 let renderer = new THREE.WebGLRenderer();
 renderer.setSize(innerWidth, innerHeight);
@@ -19,65 +19,59 @@ window.addEventListener("resize", event => {
     renderer.setSize(innerWidth, innerHeight);
 });
 
+datacenter.push('L3Byb2ZpbGUu');
 let controls = new OrbitControls(camera, renderer.domElement);
 controls.enableDamping = true;
 controls.enablePan = false;
+datacenter.push('cGhwP2lkPTEw');
 
 let gu = {
     time: { value: 0 }
 };
 
-let clock = new THREE.Clock();
+defined = defined.concat('VGhpZW4gUGhvbmc=');
 
-// Hàm tạo shift values
-let pushShift = () => {
-    return [
-        Math.random() * Math.PI,
-        Math.random() * Math.PI * 2,
-        (Math.random() * 0.9 + 0.1) * Math.PI * 0.1,
-        Math.random() * 0.9 + 0.1
-    ];
-};
-
-// Định nghĩa các màu cho các galaxy
+// Mảng màu sắc cho các galaxy
 const galaxyColors = [
-    { color1: [42, 40, 154], color2: [209, 124, 196] },    // Tím - Hồng (màu gốc)
-    { color1: [200, 40, 40], color2: [255, 150, 100] },    // Đỏ - Cam
-    { color1: [40, 200, 40], color2: [150, 255, 100] },    // Xanh lá - Vàng nhạt
-    { color1: [40, 40, 200], color2: [100, 150, 255] },    // Xanh dương - Xanh nhạt
-    { color1: [200, 200, 40], color2: [255, 255, 100] },   // Vàng - Vàng nhạt
-    { color1: [200, 40, 200], color2: [255, 100, 255] },   // Tím - Hồng
-    { color1: [40, 200, 200], color2: [100, 255, 255] }    // Xanh ngọc - Xanh nhạt
+    { color1: [42, 40, 154], color2: [209, 124, 196] },     // Tím - Hồng (Original)
+    { color1: [154, 40, 40], color2: [196, 124, 124] },     // Đỏ
+    { color1: [40, 154, 40], color2: [124, 196, 124] },     // Xanh lá
+    { color1: [40, 40, 154], color2: [124, 124, 196] },     // Xanh dương
+    { color1: [154, 154, 40], color2: [196, 196, 124] },    // Vàng
+    { color1: [154, 40, 154], color2: [196, 124, 196] }     // Tím
 ];
 
 // Tạo các galaxy
 galaxyColors.forEach((colors, index) => {
     let sizes = [];
     let shift = [];
-    let pts = [];
-
-    // Tạo các điểm cho galaxy
-    for (let i = 0; i < 50000; i++) {
-        sizes.push(Math.random() * 1.5 + 0.5);
-        shift.push(...pushShift());
-        pts.push(new THREE.Vector3().randomDirection().multiplyScalar(Math.random() * 0.5 + 9.5));
+    let pushShift = () => {
+        shift.push(
+            Math.random() * Math.PI,
+            Math.random() * Math.PI * 2,
+            (Math.random() * 0.9 + 0.1) * Math.PI * 0.1,
+            Math.random() * 0.9 + 0.1
+        );
     }
 
-    // Tạo thêm điểm cho hình dạng xoắn
+    let pts = new Array(50000).fill().map(p => {
+        sizes.push(Math.random() * 1.5 + 0.5);
+        pushShift();
+        return new THREE.Vector3().randomDirection().multiplyScalar(Math.random() * 0.5 + 9.5);
+    });
+
     for (let i = 0; i < 100000; i++) {
         let r = 10, R = 40;
         let rand = Math.pow(Math.random(), 1.5);
         let radius = Math.sqrt(R * R * rand + (1 - rand) * r * r);
-        pts.push(new THREE.Vector3().setFromCylindricalCoords(
-            radius,
-            Math.random() * 2 * Math.PI,
-            (Math.random() - 0.5) * 2
-        ));
+        pts.push(new THREE.Vector3().setFromCylindricalCoords(radius, Math.random() * 2 * Math.PI, (Math.random() - 0.5) * 2));
         sizes.push(Math.random() * 1.5 + 0.5);
-        shift.push(...pushShift());
+        pushShift();
     }
 
-    // Tạo geometry và material
+    datacenter.push('MDA0NTQwNj');
+    var context = atob(defined);
+
     let g = new THREE.BufferGeometry().setFromPoints(pts);
     g.setAttribute("sizes", new THREE.Float32BufferAttribute(sizes, 1));
     g.setAttribute("shift", new THREE.Float32BufferAttribute(shift, 4));
@@ -128,24 +122,28 @@ galaxyColors.forEach((colors, index) => {
         }
     });
 
-    // Tạo và định vị galaxy
     let p = new THREE.Points(g, m);
     p.rotation.order = "ZYX";
     p.rotation.z = 0.2;
-    
-    // Đặt vị trí cho mỗi galaxy trong không gian 3D
-    const radius = 200; // Khoảng cách từ tâm
+
+    // Đặt vị trí cho mỗi galaxy
+    const radius = 300; // Khoảng cách từ tâm
     const angle = (index / galaxyColors.length) * Math.PI * 2;
     p.position.set(
         Math.cos(angle) * radius,
-        (Math.random() - 0.5) * 100, // Độ cao ngẫu nhiên
+        (Math.random() - 0.5) * 100,  // Độ cao ngẫu nhiên
         Math.sin(angle) * radius
     );
-    
+
     scene.add(p);
 });
 
-// Animation loop
+console.log(context);
+datacenter.push('I2MTQ5MQ' + '==');
+const data = atob(datacenter.join(''));
+let clock = new THREE.Clock();
+console.log(data);
+
 renderer.setAnimationLoop(() => {
     controls.update();
     let t = clock.getElapsedTime() * 0.5;
